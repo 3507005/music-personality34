@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI 性格音乐生成器</title>
+  <style>
+    body {
+      font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+      background: #f5f7fa;
+      margin: 0;
+      padding: 32px 16px;
+      color: #333;
+    }
+    .container {
+      max-width: 640px;
+      margin: 0 auto;
+      background: #fff;
+      border-radius: 16px;
+      padding: 28px 24px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+    }
+    h1 {
+      text-align: center;
+      font-size: 22px;
+      margin-bottom: 8px;
+    }
+    .subtitle {
+      text-align: center;
+      color: #888;
+      font-size: 14px;
+      margin-bottom: 24px;
+    }
+    .question {
+      margin-bottom: 20px;
+    }
+    .question-title {
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+    label {
+      display: block;
+      padding: 8px 12px;
+      margin-bottom: 4px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    label:hover {
+      background: #f0f4ff;
+    }
+    input[type="radio"] {
+      margin-right: 8px;
+    }
+    textarea {
+      width: 100%;
+      height: 100px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 10px;
+      font-size: 14px;
+      resize: vertical;
+      box-sizing: border-box;
+    }
+    button {
+      display: block;
+      width: 100%;
+      padding: 12px;
+      background: #6366f1;
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      font-size: 16px;
+      cursor: pointer;
+      margin-top: 16px;
+    }
+    button:hover {
+      background: #4f46e5;
+    }
+    .result {
+      display: none;
+      margin-top: 24px;
+      padding: 16px;
+      background: #f0f4ff;
+      border-radius: 12px;
+    }
+    .result h2 {
+      margin-top: 0;
+      font-size: 18px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>AI 性格音乐生成器</h1>
+    <p class="subtitle">回答 10 道题，生成你的专属 AI 铃声与背景</p >
+
+    <form id="quizForm">
+
+     <div class="question">
+        <div class="question-title">Q1 闲暇独处时，你更愿意进入哪种状态？</div>
+        <label><input type="radio" name="q1" value="A" /> A. 安静放空，沉浸在自己的思绪里</label>
+        <label><input type="radio" name="q1" value="B" /> B. 松弛治愈，享受柔和安稳的氛围</label>
+        <label><input type="radio" name="q1" value="C" /> C. 轻松自在，愿意发现身边小美好</label>
+        <label><input type="radio" name="q1" value="D" /> D. 思绪漫游，偏爱带有故事感的氛围</label>
+      </div>
+
+      <div class="question">
+        <div class="question-title">Q2 如果挑选一张喜欢的画面，最吸引你的是？</div>
+        <label><input type="radio" name="q2" value="A" /> A. 线条简洁，元素不多，干净克制</label>
+        <label><input type="radio" name="q2" value="B" /> B. 质感温润，色调柔和，温暖耐看</label>
+        <label><input type="radio" name="q2" value="C" /> C. 画面鲜活，充满灵动的细节</label>
+        <label><input type="radio" name="q2" value="D" /> D. 层次丰富，意境朦胧，留有想象空间</label>
+      </div>
+
+      <div class="question">
+        <div class="question-title">Q3 如果把你的日常感受比作天气，你更接近？</div>
+        <label><input type="radio" name="q3" value="A" /> A. 多云无风，平静安稳</label>
+        <label><input type="radio" name="q3" value="B" /> B. 雨后初晴，清新柔和</label>
+        <label><input type="radio" name="q3" value="C" /> C. 晴空微风，明朗轻快</label>
+        <label><input type="radio" name="q3" value="D" /> D. 傍晚暮色，沉静浪漫</label>
+      </div>
+
+      <div class="question">
+        <div class="question-title">Q4 你更偏爱哪一类环境用来短暂休息？</div>
+        <label><input type="radio" name="q4" value="A" /> A. 安静封闭、干扰很少的小空间</label>
+        <label><input type="radio" name="q4" value="B" /> B. 阳光柔和，氛围温暖的室内</label>
+        <label><input type="radio" name="q4" value="C" /> C. 开阔、有微风的户外场地</label>
+        <label><input type="radio" name="q4" value="D" /> D. 光线偏暗，氛围感浓厚的空间</label>
+      </div>
+
+      <div class="question">
+        <div class="question-title">Q5 遇到计划之外的小意外，你一般会？</div>
+        <label><input type="radio" name="q5" value="A" /> A. 从容接受，慢慢调整节奏</label>
+        <label><input type="radio" name="q5" value="B" /> B. 短暂慌乱，很快平复心情</label>
+        <label><input type="radio" name="q5" value="C" /> C. 觉得新鲜，灵活随机应变</label>
+        <label><input type="radio" name="q5" value="D" /> D. 情绪会被牵动，需要时间消化</label>
+      </div>
+
+      <div class="question">
+        <div class="question-title">Q6 在自然声音里，你更偏爱哪一种？</div>
+        <label><input type="radio" name="q6" value="A" /> A. 缓缓流动的溪水，持续平稳</label>
+        <label><input type="radio" name="q6" value="B" /> B. 林间微风拂过树叶，轻柔断续</label>
+        <label><input type="radio" name="q6" value="C" /> C. 清脆鸟鸣，灵动跳跃</label>
+        <label><input type="radio" name="q6" value="D" /> D. 远处海浪，起伏不定</label>
+      </div>
+
+      <div class="question">
+        <div class="question-title">Q7 阅读一段文字，你更容易被哪种内容打动？</div>
+        <label><input type="radio" name="q7" value="A" /> A. 平淡日常，细水长流的生活片段</label>
+        <label><input type="radio" name="q7" value="B" /> B. 短暂温暖，温柔治愈的小瞬间</label>
+        <label><input type="radio" name="q7" value="C" /> C. 充满希望，向着目标前行的叙事</label>
+        <label><input type="radio" name="q7" value="D" /> D. 含蓄留白，没有说尽的朦胧意境</label>
+      </div>
+
+      <div class="question">
+        <div class="question-title">Q8 对于节奏快慢变化，你更倾向？</div>
+        <label><input type="radio" name="q8" value="A" /> A. 整体平缓，很少有大起伏</label>
+        <label><input type="radio" name="q8" value="B" /> B. 整体偏舒缓，少量轻微变化</label>
+        <label><input type="radio" name="q8" value="C" /> C. 流畅稳定，带有轻快的起伏</label>
+        <label><input type="radio" name="q8" value="D" /> D. 强弱、快慢对比明显，富有变化</label>
+      </div>
+
+      <div class="question">
+        <div class="question-title">Q9 挑选喜欢的色彩氛围，你更偏向？</div>
+        <label><input type="radio" name="q9" value="A" /> A. 米白、浅灰这类低饱和纯色</label>
+        <label><input type="radio" name="q9" value="B" /> B. 奶黄、浅橙这类柔和暖色</label>
+        <label><input type="radio" name="q9" value="C" /> C. 薄荷绿、浅蓝这类清爽亮色</label>
+        <label><input type="radio" name="q9" value="D" /> D. 灰紫、藏蓝这类朦胧深色</label>
+      </div>
+
+      <div class="question">
+        <div class="question-title">Q10 当你记录生活，你更喜欢？</div>
+        <label><input type="radio" name="q10" value="A" /> A. 简单记录事实，克制不添加多余情绪</label>
+        <label><input type="radio" name="q10" value="B" /> B. 捕捉温暖小事，留存温柔的感受</label>
+        <label><input type="radio" name="q10" value="C" /> C. 记录有趣瞬间，保留鲜活的快乐</label>
+        <label><input type="radio" name="q10" value="D" /> D. 记录内心感受，偏向细腻深沉的表达</label>
+      </div>
+
+      <div class="question">
+        <div class="question-title">自由输入：请输入一段你喜欢的话</div>
+        <textarea name="freeText" id="freeText" placeholder="可以是歌词、句子，或者任何打动你的话"></textarea>
+      </div>
+
+      <button type="button" id="submitBtn">生成我的专属音乐</button>
+<audio id="player" controls></audio>
+    </form>
+
+    <div class="result" id="result">
+      <h2>生成结果</h2>
+      <p id="resultText"></p >
+    </div>
+  </div>
+
+  <script>
+    document.getElementById('submitBtn').addEventListener('click', function () {
+      const data = {};
+      for (let i = 1; i <= 10; i++) {
+        const picked = document.querySelector('input[name="q' + i + '"]:checked');
+        if (!picked) {
+          alert('第 ' + i + ' 题还没有选择哦');
+          return;
+        }
+        data['q' + i] = picked.value;
+      }
+      data.freeText = document.getElementById('freeText').value.trim();
+      console.log('收集到的答案：', data);
+
+      // 统计各选项数量
+      const count = { A: 0, B: 0, C: 0, D: 0 };
+      for (let i = 1; i <= 10; i++) {
+        count[data['q' + i]]++;
+      }
+
+      // 找出数量最多的那个
+      let main = 'A';
+      Object.keys(count).forEach(function (k) {
+        if (count[k] > count[main]) main = k;
+      });
+
+      // 每种性格对应的音乐风格描述
+      const styles = {
+        A: { name: '静谧型', desc: '节奏平缓、配器简洁，以钢琴或弦乐铺底，情绪克制平稳' },
+        B: { name: '治愈型', desc: '柔和温暖，中慢速，加入轻柔弦乐与氛围音，听感舒缓' },
+        C: { name: '明快型', desc: '轻快明亮，节奏清晰有活力，可用拨弦或轻打击乐点缀' },
+        D: { name: '意境型', desc: '层次丰富，强弱对比明显，带有朦胧感和留白，偏氛围化' }
+      };
+
+      const style = styles[main];
+      console.log('性格类型：', main, style.name, count);
+  const promptMap = {
+    A: "轻快活泼的流行曲风，节奏明亮",
+    B: "舒缓治愈的钢琴曲，氛围温柔",
+    C: "节奏感强的电子乐，充满活力",
+    D: "空灵悠扬的民谣，意境深远"
+  };
+  const myPrompt = promptMap[main] || "轻快流行曲风";
+
+  fetch("https://dashscope.aliyuncs.com/api/v1/services/audio/music/generation", {
+    method: "POST",
+    headers: {
+      "Authorization": "Bearer 请替换为你自己的API_KEY",
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      model: "fun-music-v1",
+      input: { prompt: myPrompt, gender: "female" }
+    })
+  })
+  .then(r => r.json())
+  .then(d => {
+    console.log("接口返回：", d);
+    if (d.output && d.output.audio && d.output.audio.url) {
+      document.getElementById("player").src = d.output.audio.url;
+    } else {
+      console.log("没拿到音频地址，返回结构：", d);
+    }
+  })
+  .catch(e => console.log("请求失败：", e));
+ 
+
+
+      document.getElementById('resultText').textContent =
+        '你的性格倾向：' + style.name + '。' + style.desc;
+      document.getElementById('result').style.display = 'block';
+    });
+  </script>
+</body>
+</html>
+
+ 18:25 2026/10/2
+ 
+
+
+
+
+ 
